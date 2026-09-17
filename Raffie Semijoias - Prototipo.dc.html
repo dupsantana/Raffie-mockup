@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE9E3;font-family:'Work Sans',system-ui,sans-serif}
+a{color:#AE144B;text-decoration:none}
+a:hover{color:#8A0F3B}
+.cap{font:400 10px/1 ui-monospace,Menlo,monospace;color:rgba(0,0,0,.45);letter-spacing:.04em}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#EDE9E3">
+<div style="position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid #E6E0D8;display:flex;align-items:center;gap:16px;padding:10px 16px;flex-wrap:wrap">
+  <span style="font:500 11px/1 'Work Sans';letter-spacing:.14em;text-transform:uppercase;color:#AE144B">Raffie · protótipo</span>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;flex:1">
+    <button onClick="{{ irInicio }}" style="{{ abaInicio }}">Início</button>
+    <button onClick="{{ irConjuntos }}" style="{{ abaConjuntos }}">Conjuntos</button>
+    <button onClick="{{ irProduto }}" style="{{ abaProduto }}">Produto</button>
+    <button onClick="{{ irTodos }}" style="{{ abaTodos }}">Todas as peças</button>
+    <button onClick="{{ abrirMenu }}" style="{{ abaMenu }}">Menu mobile</button>
+    <button onClick="{{ abrirBusca }}" style="{{ abaBusca }}">Busca</button>
+  </div>
+  <div style="display:flex;gap:4px;background:#F0ECE5;padding:4px;border-radius:999px">
+    <button onClick="{{ verMobile }}" style="{{ btMobile }}">Mobile 390</button>
+    <button onClick="{{ verDesktop }}" style="{{ btDesktop }}">Desktop 1440</button>
+  </div>
+  <span style="font:400 11px/1 ui-monospace,Menlo,monospace;color:#9A918A">{{ url }}</span>
+</div>
+
+<div ref="{{ hostRef }}" style="display:flex;justify-content:center;padding:16px">
+  <div style="{{ palcoBox }}">
+    <div ref="{{ innerRef }}" style="{{ palcoInner }}">
+      <sc-if value="{{ vIM }}"><div style="width:390px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff;position:relative">
+    <div style="position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #E6E0D8;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 12px">
+      <button onClick="{{ abrirMenu }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"></path></svg></button>
+      <div style="width:112px;height:34px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo</div>
+      <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+    </div>
+
+    <div style="position:relative;aspect-ratio:390/440;overflow:hidden;background:#F5F1EA">
+      <img src="assets/brinco-argola-bold-gg.jpeg" alt="Brinco argola bold GG dourado sobre prato de cerâmica" style="width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+    <div style="padding:28px 24px 32px;background:#FAF6F0">
+      <h1 style="margin:0 0 12px;font:500 30px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Raffie Semijoias by Juju</h1>
+      <p style="margin:0 0 24px;font:400 13px/1.6 ui-monospace,Menlo,monospace;color:#9A918A">[frase curta da marca — 1 linha]</p>
+      <a href="#" onClick="{{ irTodos }}" style="display:flex;align-items:center;justify-content:center;height:48px;border-radius:6px;background:#AE144B;color:#fff;font:500 15px/1 'Work Sans'">Ver coleção</a>
+    </div>
+
+    <div style="padding:48px 24px 0">
+      <h2 style="margin:0 0 20px;font:500 24px/1.25 'Playfair Display',Georgia,serif;color:#1C1A19">Compre por categoria</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <sc-for list="{{ categorias }}" as="cat" hint-placeholder-count="5">
+          <a href="#" onClick="{{ cat.go }}" style="display:flex;flex-direction:column;gap:10px;text-decoration:none">
+            <span style="display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="{{ cat.img }}" alt="{{ cat.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+            <span style="font:400 14px/1.3 'Work Sans';color:#1C1A19">{{ cat.name }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="padding:48px 0 0">
+      <div style="padding:0 24px;display:flex;align-items:baseline;justify-content:space-between;margin:0 0 20px">
+        <h2 style="margin:0;font:500 24px/1.25 'Playfair Display',Georgia,serif;color:#1C1A19">Mais vendidos</h2>
+        <a href="#" onClick="{{ irTodos }}" style="font:500 13px/1 'Work Sans';color:#AE144B">Ver todos</a>
+      </div>
+      <div style="display:flex;gap:12px;padding:0 24px 8px;overflow:hidden">
+        <sc-for list="{{ maisVendidos }}" as="item" hint-placeholder-count="3">
+          <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;flex:none;width:150px;display:flex;flex-direction:column;gap:8px;text-decoration:none">
+            <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+              <img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block">
+            </span>
+            <span style="font:400 13px/1.35 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+            <span style="font:600 14px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <p class="cap" style="display:block;padding:8px 24px 0">rolagem horizontal, 3 cartões no viewport</p>
+    </div>
+
+    <div style="margin:48px 0 0;padding:40px 24px;background:#FBEFF3">
+      <h2 style="margin:0 0 24px;font:500 24px/1.25 'Playfair Display',Georgia,serif;color:#1C1A19">Por que comprar com a Raffie</h2>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;gap:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 3.2l8.8 8.8-8.8 8.8L3.2 12z"></path></svg><div><p style="margin:0 0 4px;font:500 15px/1.3 'Work Sans';color:#1C1A19">PIX</p><p style="margin:0;font:400 12px/1.5 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div></div>
+        <div style="display:flex;gap:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2.5" y="5.5" width="19" height="13" rx="2"></rect><path d="M2.5 10h19"></path></svg><div><p style="margin:0 0 4px;font:500 15px/1.3 'Work Sans';color:#1C1A19">Cartão em até 6x sem juros</p><p style="margin:0;font:400 12px/1.5 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div></div>
+        <div style="display:flex;gap:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg><div><p style="margin:0 0 4px;font:500 15px/1.3 'Work Sans';color:#1C1A19">Atendimento pelo WhatsApp</p><p style="margin:0;font:400 12px/1.5 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div></div>
+        <div style="display:flex;gap:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3.5" y="9.5" width="17" height="10.5" rx="1.5"></rect><path d="M3.5 13.8h17M12 9.5v10.5"></path><path d="M12 9.5S10.6 5 8.4 5a2.2 2.2 0 0 0 0 4.5zM12 9.5s1.4-4.5 3.6-4.5a2.2 2.2 0 0 1 0 4.5z"></path></svg><div><p style="margin:0 0 4px;font:500 15px/1.3 'Work Sans';color:#1C1A19">Embalagem para presente</p><p style="margin:0;font:400 12px/1.5 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div></div>
+      </div>
+    </div>
+
+    <div style="padding:48px 24px 0">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin:0 0 20px">
+        <h2 style="margin:0;font:500 24px/1.25 'Playfair Display',Georgia,serif;color:#1C1A19">Novidades</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 12px">
+        <sc-for list="{{ novidades }}" as="item" hint-placeholder-count="4">
+          <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;text-decoration:none">
+            <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+              <img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block">
+            </span>
+            <span style="font:400 13px/1.35 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+            <span style="font:600 14px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <a href="#" onClick="{{ irTodos }}" style="display:flex;align-items:center;justify-content:center;height:48px;margin:24px 0 0;border-radius:6px;border:1px solid #1C1A19;color:#1C1A19;font:500 15px/1 'Work Sans'">Ver todos os produtos</a>
+    </div>
+
+    <div style="padding:48px 24px 40px">
+      <h2 style="margin:0 0 6px;font:500 24px/1.25 'Playfair Display',Georgia,serif;color:#1C1A19">No Instagram</h2>
+      <a href="https://instagram.com/raffiebyjuju" style="font:400 14px/1 'Work Sans';color:#AE144B">@raffiebyjuju</a>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 0">
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/conjunto-organico.jpeg" alt="Conjunto Orgânico no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/anel-curve.jpeg" alt="Anel Curve no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/bracelete-duplo.jpeg" alt="Bracelete Duplo no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+      </div>
+    </div>
+
+    <footer style="background:#1C1A19;padding:40px 24px 32px">
+      <div style="width:132px;height:40px;border:1px solid #4A4441;border-radius:4px;display:flex;align-items:center;justify-content:center;font:400 10px/1 ui-monospace,Menlo,monospace;color:#8C8683;margin:0 0 16px">logo 132×40</div>
+      <p style="margin:0 0 32px;font:400 13px/1.6 ui-monospace,Menlo,monospace;color:#8C8683">[frase curta da marca]</p>
+      <div style="border-top:1px solid #3A3532;padding:18px 0;display:flex;align-items:center;justify-content:space-between"><span style="font:500 14px/1 'Work Sans';color:#fff">Categorias</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C8683" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></div>
+      <div style="border-top:1px solid #3A3532;padding:18px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 16px"><span style="font:500 14px/1 'Work Sans';color:#fff">Atendimento</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C8683" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M18 14.5l-6-6-6 6"></path></svg></div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <a href="https://wa.me/5543988018171" style="font:400 14px/1.4 'Work Sans';color:#E6E0D8">WhatsApp (43) 98801-8171</a>
+          <a href="mailto:jujubalondrina@gmail.com" style="font:400 14px/1.4 'Work Sans';color:#E6E0D8">jujubalondrina@gmail.com</a>
+          <a href="https://instagram.com/raffiebyjuju" style="font:400 14px/1.4 'Work Sans';color:#E6E0D8">Instagram @raffiebyjuju</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid #3A3532;padding:18px 0 24px">
+        <p style="margin:0 0 14px;font:500 14px/1 'Work Sans';color:#fff">Formas de pagamento</p>
+        <div style="display:flex;gap:16px;align-items:center;color:#E6E0D8">
+          <span style="display:flex;align-items:center;gap:8px;font:400 13px/1 'Work Sans'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"><path d="M12 3.2l8.8 8.8-8.8 8.8L3.2 12z"></path></svg>PIX</span>
+          <span style="display:flex;align-items:center;gap:8px;font:400 13px/1 'Work Sans'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2"></rect><path d="M2.5 10h19"></path></svg>Cartão em até 6x sem juros</span>
+        </div>
+      </div>
+      <p style="margin:0;padding:18px 0 0;border-top:1px solid #3A3532;font:400 12px/1.5 'Work Sans';color:#8C8683">© 2026 Raffie Semijoias by Juju · Londrina, PR</p>
+    </footer>
+
+    <span style="position:absolute;right:16px;bottom:96px;width:56px;height:56px;border-radius:999px;background:#fff;border:1px solid #E6E0D8;box-shadow:0 6px 20px rgba(28,26,25,.16);display:flex;align-items:center;justify-content:center;color:#AE144B"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg></span>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vID }}"><div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff;position:relative">
+    <div style="background:#fff;border-bottom:1px solid #E6E0D8;display:flex;align-items:center;gap:40px;padding:0 64px;height:88px">
+      <div style="flex:none;width:132px;height:40px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 10px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo 132×40</div>
+      <nav style="display:flex;gap:28px;flex:1">
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Anéis</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Pulseiras e Braceletes</a>
+        <a href="#" onClick="{{ irConjuntos }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Conjuntos</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:6px;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+        <a href="https://wa.me/5543988018171" style="display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:1px solid #AE144B;border-radius:6px;color:#AE144B;font:500 14px/1 'Work Sans'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg>WhatsApp</a>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;align-items:stretch;background:#FAF6F0">
+      <div style="padding:96px 64px;display:flex;flex-direction:column;justify-content:center">
+        <p style="margin:0 0 20px;font:500 11px/1 'Work Sans';letter-spacing:.14em;text-transform:uppercase;color:#AE144B">Londrina · PR</p>
+        <h1 style="margin:0 0 20px;font:500 52px/1.12 'Playfair Display',Georgia,serif;color:#1C1A19;max-width:520px">Raffie Semijoias by Juju</h1>
+        <p style="margin:0 0 36px;font:400 14px/1.7 ui-monospace,Menlo,monospace;color:#9A918A;max-width:460px">[frase curta da marca — 1 ou 2 linhas]</p>
+        <a href="#" onClick="{{ irTodos }}" style="display:inline-flex;align-items:center;justify-content:center;height:52px;width:200px;border-radius:6px;background:#AE144B;color:#fff;font:500 15px/1 'Work Sans'">Ver coleção</a>
+      </div>
+      <div style="aspect-ratio:720/560;overflow:hidden;background:#F5F1EA"><img src="assets/brinco-argola-bold-gg.jpeg" alt="Brinco argola bold GG dourado sobre prato de cerâmica" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+    </div>
+
+    <div style="padding:96px 64px 0">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin:0 0 32px">
+        <h2 style="margin:0;font:500 34px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Compre por categoria</h2>
+        <a href="#" onClick="{{ irTodos }}" style="font:500 15px/1 'Work Sans';color:#AE144B">Ver todas as peças</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px">
+        <sc-for list="{{ categorias }}" as="cat" hint-placeholder-count="5">
+          <a href="#" onClick="{{ cat.go }}" style="display:flex;flex-direction:column;gap:14px;text-decoration:none">
+            <span style="display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="{{ cat.img }}" alt="{{ cat.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+            <span style="font:400 16px/1.3 'Work Sans';color:#1C1A19">{{ cat.name }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="padding:96px 64px 0">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin:0 0 32px">
+        <h2 style="margin:0;font:500 34px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Mais vendidos</h2>
+        <a href="#" onClick="{{ irTodos }}" style="font:500 15px/1 'Work Sans';color:#AE144B">Ver todos os mais vendidos</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+        <sc-for list="{{ maisVendidos }}" as="item" hint-placeholder-count="4">
+          <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px;text-decoration:none">
+            <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+              <img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block">
+              <sc-if value="{{ item.isBadge }}"><span style="position:absolute;top:12px;left:12px;background:#fff;color:#AE144B;font:500 10px/1 'Work Sans';letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:999px">{{ item.badge }}</span></sc-if>
+            </span>
+            <span style="font:400 16px/1.4 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+            <span style="font:600 17px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin:96px 0 0;padding:72px 64px;background:#FBEFF3">
+      <h2 style="margin:0 0 40px;font:500 34px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Por que comprar com a Raffie</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+        <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2l8.8 8.8-8.8 8.8L3.2 12z"></path></svg><p style="margin:16px 0 6px;font:500 17px/1.3 'Work Sans';color:#1C1A19">PIX</p><p style="margin:0;font:400 13px/1.6 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div>
+        <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2"></rect><path d="M2.5 10h19"></path></svg><p style="margin:16px 0 6px;font:500 17px/1.3 'Work Sans';color:#1C1A19">Cartão em até 6x sem juros</p><p style="margin:0;font:400 13px/1.6 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div>
+        <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg><p style="margin:16px 0 6px;font:500 17px/1.3 'Work Sans';color:#1C1A19">Atendimento pelo WhatsApp</p><p style="margin:0;font:400 13px/1.6 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div>
+        <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9.5" width="17" height="10.5" rx="1.5"></rect><path d="M3.5 13.8h17M12 9.5v10.5"></path><path d="M12 9.5S10.6 5 8.4 5a2.2 2.2 0 0 0 0 4.5zM12 9.5s1.4-4.5 3.6-4.5a2.2 2.2 0 0 1 0 4.5z"></path></svg><p style="margin:16px 0 6px;font:500 17px/1.3 'Work Sans';color:#1C1A19">Embalagem para presente</p><p style="margin:0;font:400 13px/1.6 ui-monospace,Menlo,monospace;color:#9A918A">[uma linha de detalhe]</p></div>
+      </div>
+    </div>
+
+    <div style="padding:96px 64px 0">
+      <h2 style="margin:0 0 32px;font:500 34px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Novidades</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+        <sc-for list="{{ novidades }}" as="item" hint-placeholder-count="4">
+          <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px;text-decoration:none">
+            <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+              <img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block">
+            </span>
+            <span style="font:400 16px/1.4 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+            <span style="font:600 17px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:center;margin:48px 0 0"><a href="#" onClick="{{ irTodos }}" style="display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 32px;border-radius:6px;border:1px solid #1C1A19;color:#1C1A19;font:500 15px/1 'Work Sans'">Ver todos os produtos</a></div>
+    </div>
+
+    <div style="padding:96px 64px 96px">
+      <div style="display:flex;align-items:baseline;gap:16px;margin:0 0 32px">
+        <h2 style="margin:0;font:500 34px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">No Instagram</h2>
+        <a href="https://instagram.com/raffiebyjuju" style="font:400 16px/1 'Work Sans';color:#AE144B">@raffiebyjuju</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/conjunto-organico.jpeg" alt="Conjunto Orgânico no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/anel-curve.jpeg" alt="Anel Curve no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/bracelete-duplo.jpeg" alt="Bracelete Duplo no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/colar-duplo.jpeg" alt="Colar Duplo no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+        <span style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/brinco-argola-bold-gg.jpeg" alt="Brinco Argola Bold GG no Instagram da Raffie" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+      </div>
+    </div>
+
+    <footer style="background:#1C1A19;padding:72px 64px 32px">
+      <div style="display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1fr;gap:48px;padding:0 0 48px;border-bottom:1px solid #3A3532">
+        <div>
+          <div style="width:132px;height:40px;border:1px solid #4A4441;border-radius:4px;display:flex;align-items:center;justify-content:center;font:400 10px/1 ui-monospace,Menlo,monospace;color:#8C8683;margin:0 0 20px">logo 132×40</div>
+          <p style="margin:0;font:400 13px/1.7 ui-monospace,Menlo,monospace;color:#8C8683;max-width:300px">[frase curta da marca]</p>
+        </div>
+        <div>
+          <p style="margin:0 0 18px;font:500 12px/1 'Work Sans';letter-spacing:.12em;text-transform:uppercase;color:#C9A25C">Categorias</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#E6E0D8">Brincos</a>
+            <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#E6E0D8">Colares</a>
+            <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#E6E0D8">Anéis</a>
+            <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#E6E0D8">Pulseiras e Braceletes</a>
+            <a href="#" onClick="{{ irConjuntos }}" style="font:400 15px/1 'Work Sans';color:#E6E0D8">Conjuntos</a>
+          </div>
+        </div>
+        <div>
+          <p style="margin:0 0 18px;font:500 12px/1 'Work Sans';letter-spacing:.12em;text-transform:uppercase;color:#C9A25C">Atendimento</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <a href="https://wa.me/5543988018171" style="font:400 15px/1 'Work Sans';color:#E6E0D8">WhatsApp (43) 98801-8171</a>
+            <a href="mailto:jujubalondrina@gmail.com" style="font:400 15px/1 'Work Sans';color:#E6E0D8">jujubalondrina@gmail.com</a>
+            <a href="https://instagram.com/raffiebyjuju" style="font:400 15px/1 'Work Sans';color:#E6E0D8">Instagram @raffiebyjuju</a>
+          </div>
+        </div>
+        <div>
+          <p style="margin:0 0 18px;font:500 12px/1 'Work Sans';letter-spacing:.12em;text-transform:uppercase;color:#C9A25C">Formas de pagamento</p>
+          <div style="display:flex;flex-direction:column;gap:14px;color:#E6E0D8">
+            <span style="display:flex;align-items:center;gap:10px;font:400 15px/1.3 'Work Sans'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"><path d="M12 3.2l8.8 8.8-8.8 8.8L3.2 12z"></path></svg>PIX</span>
+            <span style="display:flex;align-items:center;gap:10px;font:400 15px/1.3 'Work Sans'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2"></rect><path d="M2.5 10h19"></path></svg>Cartão em até 6x sem juros</span>
+            <span style="display:flex;align-items:center;gap:10px;font:400 15px/1.3 'Work Sans'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="11" height="9" rx="1"></rect><path d="M13.5 9.5h4l3 3v3h-7z"></path><circle cx="7" cy="17.5" r="1.8"></circle><circle cx="17" cy="17.5" r="1.8"></circle></svg>Envio pelos Correios</span>
+          </div>
+        </div>
+      </div>
+      <p style="margin:0;padding:28px 0 0;font:400 13px/1.5 'Work Sans';color:#8C8683">© 2026 Raffie Semijoias by Juju · Londrina, PR</p>
+    </footer>
+
+    <span style="position:absolute;right:32px;bottom:32px;width:56px;height:56px;border-radius:999px;background:#fff;border:1px solid #E6E0D8;box-shadow:0 6px 20px rgba(28,26,25,.16);display:flex;align-items:center;justify-content:center;color:#AE144B"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg></span>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vCM }}"><div style="width:390px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff">
+    <div style="border-bottom:1px solid #E6E0D8;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 12px">
+      <button onClick="{{ abrirMenu }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"></path></svg></button>
+      <div style="width:112px;height:34px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo</div>
+      <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+    </div>
+
+    <nav style="display:flex;align-items:center;gap:8px;padding:16px 24px 0;font:400 12px/1 'Work Sans'">
+      <a href="#" onClick="{{ irInicio }}" style="color:#6B6360">Início</a>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+      <span style="color:#1C1A19">Conjuntos</span>
+    </nav>
+
+    <div style="padding:20px 24px 0">
+      <h1 style="margin:0 0 12px;font:500 30px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Conjuntos</h1>
+      <p style="margin:0;font:400 13px/1.7 ui-monospace,Menlo,monospace;color:#9A918A">[2 ou 3 linhas sobre a categoria — texto que você escreve]</p>
+    </div>
+
+    <div style="padding:24px 0 0">
+      <div style="display:flex;gap:8px;padding:0 24px 16px;overflow:hidden">
+        <a href="#" onClick="{{ irConjuntos }}" style="flex:none;padding:10px 16px;border-radius:999px;background:#AE144B;color:#fff;font:500 13px/1 'Work Sans'">Conjuntos</a>
+        <a href="#" onClick="{{ nada }}" style="flex:none;padding:10px 16px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 13px/1 'Work Sans'">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="flex:none;padding:10px 16px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 13px/1 'Work Sans'">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="flex:none;padding:10px 16px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 13px/1 'Work Sans'">Anéis</a>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px 20px;border-bottom:1px solid #F0ECE5">
+        <span style="font:400 12px/1 ui-monospace,Menlo,monospace;color:#9A918A">[N] peças</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1px solid #E6E0D8;border-radius:6px;font:400 13px/1 'Work Sans';color:#1C1A19">Mais recentes<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C1A19" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></span>
+      </div>
+    </div>
+
+    <div style="padding:24px 24px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px 12px">
+      <sc-for list="{{ conjuntosGrid }}" as="item" hint-placeholder-count="8">
+        <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;text-decoration:none">
+          <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+            <sc-if value="{{ item.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+            <sc-if value="{{ item.noImg }}"><span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#F3EDE4 0 7px,#EAE2D6 7px 14px);font:400 10px/1 ui-monospace,Menlo,monospace;color:#9A918A">foto 1:1</span></sc-if>
+            <sc-if value="{{ item.isBadge }}"><span style="position:absolute;top:10px;left:10px;background:#fff;color:#AE144B;font:500 9px/1 'Work Sans';letter-spacing:.1em;text-transform:uppercase;padding:6px 9px;border-radius:999px">{{ item.badge }}</span></sc-if>
+          </span>
+          <span style="font:400 13px/1.35 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+          <span style="font:600 14px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:40px 24px 48px">
+      <span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:6px;background:#AE144B;color:#fff;font:500 14px/1 'Work Sans'">1</span>
+      <a href="#" onClick="{{ nada }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">2</a>
+      <a href="#" onClick="{{ nada }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">3</a>
+      <a href="#" onClick="{{ nada }}" style="height:44px;display:flex;align-items:center;padding:0 16px;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Próxima</a>
+    </div>
+
+    <div style="padding:28px 24px;background:#FAF6F0;border-top:1px solid #E6E0D8"><p class="cap" style="display:block">rodapé igual ao da tela Início</p></div>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vCD }}"><div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff">
+    <div style="background:#fff;border-bottom:1px solid #E6E0D8;display:flex;align-items:center;gap:40px;padding:0 64px;height:88px">
+      <div style="flex:none;width:132px;height:40px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 10px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo 132×40</div>
+      <nav style="display:flex;gap:28px;flex:1">
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Anéis</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Pulseiras e Braceletes</a>
+        <a href="#" onClick="{{ irConjuntos }}" style="font:400 15px/1 'Work Sans';color:#AE144B;padding:8px 0;border-bottom:1px solid #AE144B">Conjuntos</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:6px;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+        <a href="https://wa.me/5543988018171" style="display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:1px solid #AE144B;border-radius:6px;color:#AE144B;font:500 14px/1 'Work Sans'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg>WhatsApp</a>
+      </div>
+    </div>
+
+    <div style="padding:32px 64px 0">
+      <nav style="display:flex;align-items:center;gap:10px;font:400 13px/1 'Work Sans'">
+        <a href="#" onClick="{{ irInicio }}" style="color:#6B6360">Início</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+        <span style="color:#1C1A19">Conjuntos</span>
+      </nav>
+      <div style="margin:28px 0 0;max-width:640px">
+        <h1 style="margin:0 0 16px;font:500 44px/1.15 'Playfair Display',Georgia,serif;color:#1C1A19">Conjuntos</h1>
+        <p style="margin:0;font:400 14px/1.8 ui-monospace,Menlo,monospace;color:#9A918A">[2 ou 3 linhas sobre a categoria — texto que você escreve]</p>
+      </div>
+    </div>
+
+    <div style="padding:40px 64px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="#" onClick="{{ irConjuntos }}" style="padding:11px 18px;border-radius:999px;background:#AE144B;color:#fff;font:500 14px/1 'Work Sans'">Conjuntos</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Anéis</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Pulseiras e Braceletes</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px">
+        <span style="font:400 13px/1 ui-monospace,Menlo,monospace;color:#9A918A">[N] peças</span>
+        <span style="display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 18px;border:1px solid #E6E0D8;border-radius:6px"><span style="font:400 14px/1 'Work Sans';color:#6B6360">Ordenar por</span><span style="font:500 14px/1 'Work Sans';color:#1C1A19">Mais recentes</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A19" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></span>
+      </div>
+    </div>
+
+    <div style="padding:40px 64px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:40px 24px">
+      <sc-for list="{{ conjuntosGrid }}" as="item" hint-placeholder-count="8">
+        <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px;text-decoration:none">
+          <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+            <sc-if value="{{ item.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+            <sc-if value="{{ item.noImg }}"><span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#F3EDE4 0 8px,#EAE2D6 8px 16px);font:400 11px/1 ui-monospace,Menlo,monospace;color:#9A918A">foto 1:1</span></sc-if>
+            <sc-if value="{{ item.isBadge }}"><span style="position:absolute;top:12px;left:12px;background:#fff;color:#AE144B;font:500 10px/1 'Work Sans';letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:999px">{{ item.badge }}</span></sc-if>
+          </span>
+          <span style="font:400 16px/1.4 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+          <span style="font:600 17px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:64px 64px 80px">
+      <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:6px;background:#AE144B;color:#fff;font:500 15px/1 'Work Sans'">1</span>
+      <a href="#" onClick="{{ nada }}" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 15px/1 'Work Sans'">2</a>
+      <a href="#" onClick="{{ nada }}" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 15px/1 'Work Sans'">3</a>
+      <a href="#" onClick="{{ nada }}" style="height:48px;display:flex;align-items:center;padding:0 20px;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 15px/1 'Work Sans'">Próxima página</a>
+    </div>
+
+    <div style="padding:28px 64px;background:#FAF6F0;border-top:1px solid #E6E0D8"><p class="cap" style="display:block">rodapé igual ao da tela Início</p></div>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vPM }}"><div style="width:390px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff;position:relative">
+    <div style="border-bottom:1px solid #E6E0D8;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 12px">
+      <button onClick="{{ abrirMenu }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"></path></svg></button>
+      <div style="width:112px;height:34px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo</div>
+      <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+    </div>
+
+    <nav style="display:flex;align-items:center;gap:7px;padding:14px 24px;font:400 12px/1 'Work Sans'">
+      <a href="#" onClick="{{ irInicio }}" style="color:#6B6360">Início</a>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+      <a href="#" onClick="{{ irConjuntos }}" style="color:#6B6360">Conjuntos</a>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+      <span style="color:#1C1A19">Conjunto Orgânico</span>
+    </nav>
+
+    <div style="position:relative;aspect-ratio:1/1;overflow:hidden;background:#F5F1EA">
+      <img src="assets/conjunto-organico.jpeg" alt="Conjunto Orgânico dourado com pedras negras: colar e brincos" style="width:100%;height:100%;object-fit:cover;display:block">
+      <span style="position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:6px">
+        <span style="width:22px;height:3px;border-radius:2px;background:#AE144B"></span>
+        <span style="width:22px;height:3px;border-radius:2px;background:rgba(28,26,25,.22)"></span>
+        <span style="width:22px;height:3px;border-radius:2px;background:rgba(28,26,25,.22)"></span>
+      </span>
+    </div>
+
+    <div style="padding:28px 24px 0">
+      <h1 style="margin:0 0 14px;font:500 28px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Conjunto Orgânico</h1>
+      <p style="margin:0 0 6px;font:600 28px/1 'Work Sans';color:#AE144B">R$ 291,90</p>
+      <p style="margin:0 0 16px;font:400 14px/1.5 'Work Sans';color:#6B6360">ou 6x de R$ 48,65 sem juros</p>
+      <div style="display:flex;align-items:center;gap:8px;margin:0 0 6px;font:400 14px/1 'Work Sans';color:#1C1A19"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Em estoque</div>
+      <p style="margin:0 0 24px;font:400 12px/1 ui-monospace,Menlo,monospace;color:#9A918A">código [preencher]</p>
+    </div>
+
+    <div style="padding:0 24px">
+      <div style="border:1px solid #E6E0D8;border-radius:6px;padding:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin:0 0 14px;color:#1C1A19"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="11" height="9" rx="1"></rect><path d="M13.5 9.5h4l3 3v3h-7z"></path><circle cx="7" cy="17.5" r="1.8"></circle><circle cx="17" cy="17.5" r="1.8"></circle></svg><span style="font:500 14px/1 'Work Sans'">Calcular frete e prazo</span></div>
+        <div style="display:flex;gap:8px">
+          <span style="flex:1;height:48px;border:1px solid #E6E0D8;border-radius:6px;display:flex;align-items:center;padding:0 14px;font:400 14px/1 'Work Sans';color:#9A918A">CEP</span>
+          <span style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 20px;border-radius:6px;border:1px solid #1C1A19;color:#1C1A19;font:500 14px/1 'Work Sans'">Calcular</span>
+        </div>
+        <p class="cap" style="display:block;margin:12px 0 0">PAC e SEDEX pela consulta aos Correios</p>
+      </div>
+    </div>
+
+    <div style="padding:40px 24px 0">
+      <h2 style="margin:0 0 12px;font:500 20px/1.3 'Playfair Display',Georgia,serif;color:#1C1A19">Descrição</h2>
+      <p style="margin:0;font:400 13px/1.8 ui-monospace,Menlo,monospace;color:#9A918A">[descrição original da peça — 3 a 5 linhas escritas por você, sem repetir o texto de outras peças]</p>
+    </div>
+
+    <div style="padding:32px 24px 0">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-top:1px solid #F0ECE5"><span style="font:500 15px/1 'Work Sans';color:#1C1A19">Formas de pagamento</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6360" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-top:1px solid #F0ECE5;border-bottom:1px solid #F0ECE5"><span style="font:500 15px/1 'Work Sans';color:#1C1A19">Trocas e garantia</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6360" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></div>
+    </div>
+
+    <div style="padding:40px 24px 0">
+      <h2 style="margin:0 0 20px;font:500 20px/1.3 'Playfair Display',Georgia,serif;color:#1C1A19">Você também pode gostar</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 12px">
+        <sc-for list="{{ relacionados }}" as="item" hint-placeholder-count="4">
+          <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;text-decoration:none">
+            <span style="display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+            <span style="font:400 13px/1.35 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+            <span style="font:600 14px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="padding:40px 24px 120px"><p class="cap" style="display:block">rodapé igual ao da tela Início</p></div>
+
+    <div style="position:sticky;bottom:0;background:#fff;border-top:1px solid #E6E0D8;padding:12px 16px 16px;display:flex;align-items:center;gap:12px">
+      <div style="flex:none"><p style="margin:0;font:600 17px/1 'Work Sans';color:#AE144B">R$ 291,90</p><p style="margin:4px 0 0;font:400 11px/1 'Work Sans';color:#6B6360">6x de R$ 48,65</p></div>
+      <a href="https://wa.me/5543988018171" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:6px;background:#AE144B;color:#fff;font:500 15px/1 'Work Sans'"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg>Comprar pelo WhatsApp</a>
+    </div>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vPD }}"><div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff">
+    <div style="background:#fff;border-bottom:1px solid #E6E0D8;display:flex;align-items:center;gap:40px;padding:0 64px;height:88px">
+      <div style="flex:none;width:132px;height:40px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 10px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo 132×40</div>
+      <nav style="display:flex;gap:28px;flex:1">
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Anéis</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Pulseiras e Braceletes</a>
+        <a href="#" onClick="{{ irConjuntos }}" style="font:400 15px/1 'Work Sans';color:#AE144B;padding:8px 0;border-bottom:1px solid #AE144B">Conjuntos</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:6px;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+        <a href="https://wa.me/5543988018171" style="display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:1px solid #AE144B;border-radius:6px;color:#AE144B;font:500 14px/1 'Work Sans'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg>WhatsApp</a>
+      </div>
+    </div>
+
+    <div style="padding:32px 64px 0">
+      <nav style="display:flex;align-items:center;gap:10px;font:400 13px/1 'Work Sans'">
+        <a href="#" onClick="{{ irInicio }}" style="color:#6B6360">Início</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+        <a href="#" onClick="{{ irConjuntos }}" style="color:#6B6360">Conjuntos</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+        <span style="color:#1C1A19">Conjunto Orgânico</span>
+      </nav>
+    </div>
+
+    <div style="padding:40px 64px 0;display:grid;grid-template-columns:104px 1fr 440px;gap:24px 48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;outline:1px solid #AE144B;outline-offset:2px"><img src="assets/conjunto-organico.jpeg" alt="Conjunto Orgânico dourado com pedras negras, foto principal" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+        <span style="display:flex;aspect-ratio:1/1;border-radius:4px;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#F3EDE4 0 7px,#EAE2D6 7px 14px);font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">foto 2</span>
+        <span style="display:flex;aspect-ratio:1/1;border-radius:4px;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#F3EDE4 0 7px,#EAE2D6 7px 14px);font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">foto 3</span>
+        <span style="display:flex;aspect-ratio:1/1;border-radius:4px;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#F3EDE4 0 7px,#EAE2D6 7px 14px);font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">foto 4</span>
+      </div>
+
+      <div style="aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="assets/conjunto-organico.jpeg" alt="Conjunto Orgânico dourado com pedras negras: colar e brincos" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+
+      <div>
+        <h1 style="margin:0 0 20px;font:500 40px/1.15 'Playfair Display',Georgia,serif;color:#1C1A19">Conjunto Orgânico</h1>
+        <p style="margin:0 0 8px;font:600 34px/1 'Work Sans';color:#AE144B">R$ 291,90</p>
+        <p style="margin:0 0 20px;font:400 15px/1.5 'Work Sans';color:#6B6360">ou 6x de R$ 48,65 sem juros</p>
+        <div style="display:flex;align-items:center;gap:20px;margin:0 0 28px">
+          <span style="display:flex;align-items:center;gap:8px;font:400 15px/1 'Work Sans';color:#1C1A19"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Em estoque</span>
+          <span style="font:400 13px/1 ui-monospace,Menlo,monospace;color:#9A918A">código [preencher]</span>
+        </div>
+        <a href="https://wa.me/5543988018171" style="display:flex;align-items:center;justify-content:center;gap:10px;height:56px;border-radius:6px;background:#AE144B;color:#fff;font:500 16px/1 'Work Sans';margin:0 0 16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg>Comprar pelo WhatsApp</a>
+        <div style="display:flex;align-items:center;gap:16px;padding:0 0 28px;color:#6B6360">
+          <span style="display:flex;align-items:center;gap:8px;font:400 13px/1 'Work Sans'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"><path d="M12 3.2l8.8 8.8-8.8 8.8L3.2 12z"></path></svg>PIX</span>
+          <span style="display:flex;align-items:center;gap:8px;font:400 13px/1 'Work Sans'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2"></rect><path d="M2.5 10h19"></path></svg>6x sem juros</span>
+          <span style="display:flex;align-items:center;gap:8px;font:400 13px/1 'Work Sans'"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9.5" width="17" height="10.5" rx="1.5"></rect><path d="M3.5 13.8h17M12 9.5v10.5"></path></svg>Embalagem para presente</span>
+        </div>
+
+        <div style="border:1px solid #E6E0D8;border-radius:6px;padding:20px;margin:0 0 32px">
+          <div style="display:flex;align-items:center;gap:10px;margin:0 0 14px;color:#1C1A19"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="11" height="9" rx="1"></rect><path d="M13.5 9.5h4l3 3v3h-7z"></path><circle cx="7" cy="17.5" r="1.8"></circle><circle cx="17" cy="17.5" r="1.8"></circle></svg><span style="font:500 15px/1 'Work Sans'">Calcular frete e prazo</span></div>
+          <div style="display:flex;gap:8px">
+            <span style="flex:1;height:48px;border:1px solid #E6E0D8;border-radius:6px;display:flex;align-items:center;padding:0 16px;font:400 15px/1 'Work Sans';color:#9A918A">CEP</span>
+            <span style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:6px;border:1px solid #1C1A19;color:#1C1A19;font:500 14px/1 'Work Sans'">Calcular</span>
+          </div>
+          <p class="cap" style="display:block;margin:12px 0 0">PAC e SEDEX pela consulta aos Correios</p>
+        </div>
+
+        <h2 style="margin:0 0 12px;font:500 20px/1.3 'Playfair Display',Georgia,serif;color:#1C1A19">Descrição</h2>
+        <p style="margin:0 0 32px;font:400 13px/1.8 ui-monospace,Menlo,monospace;color:#9A918A">[descrição original da peça — 3 a 5 linhas escritas por você, sem repetir o texto de outras peças]</p>
+
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-top:1px solid #F0ECE5"><span style="font:500 15px/1 'Work Sans';color:#1C1A19">Formas de pagamento</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6360" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-top:1px solid #F0ECE5;border-bottom:1px solid #F0ECE5"><span style="font:500 15px/1 'Work Sans';color:#1C1A19">Trocas e garantia</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6360" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></div>
+      </div>
+    </div>
+
+    <div style="padding:96px 64px 0">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin:0 0 32px">
+        <h2 style="margin:0;font:500 34px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Você também pode gostar</h2>
+        <a href="#" onClick="{{ irConjuntos }}" style="font:500 15px/1 'Work Sans';color:#AE144B">Ver todos os conjuntos</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+        <sc-for list="{{ relacionados }}" as="item" hint-placeholder-count="4">
+          <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px;text-decoration:none">
+            <span style="display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA"><img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+            <span style="font:400 16px/1.4 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+            <span style="font:600 17px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin:96px 0 0;padding:28px 64px;background:#FAF6F0;border-top:1px solid #E6E0D8"><p class="cap" style="display:block">rodapé igual ao da tela Início</p></div>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vTM }}"><div style="width:390px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff">
+    <div style="border-bottom:1px solid #E6E0D8;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 12px">
+      <button onClick="{{ abrirMenu }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"></path></svg></button>
+      <div style="width:112px;height:34px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo</div>
+      <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+    </div>
+
+    <nav style="display:flex;align-items:center;gap:8px;padding:16px 24px 0;font:400 12px/1 'Work Sans'">
+      <a href="#" onClick="{{ irInicio }}" style="color:#6B6360">Início</a>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+      <span style="color:#1C1A19">Todas as peças</span>
+    </nav>
+
+    <div style="padding:20px 24px 0">
+      <h1 style="margin:0 0 12px;font:500 30px/1.2 'Playfair Display',Georgia,serif;color:#1C1A19">Todas as peças</h1>
+      <p style="margin:0;font:400 13px/1.7 ui-monospace,Menlo,monospace;color:#9A918A">[2 ou 3 linhas de introdução — texto que você escreve]</p>
+    </div>
+
+    <div style="padding:24px 0 0">
+      <div style="display:flex;gap:8px;padding:0 24px 16px;overflow:hidden">
+        <a href="#" onClick="{{ irTodos }}" style="flex:none;padding:10px 16px;border-radius:999px;background:#AE144B;color:#fff;font:500 13px/1 'Work Sans'">Todas</a>
+        <a href="#" onClick="{{ nada }}" style="flex:none;padding:10px 16px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 13px/1 'Work Sans'">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="flex:none;padding:10px 16px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 13px/1 'Work Sans'">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="flex:none;padding:10px 16px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 13px/1 'Work Sans'">Anéis</a>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px 20px;border-bottom:1px solid #F0ECE5">
+        <span style="font:400 12px/1 ui-monospace,Menlo,monospace;color:#9A918A">[N] peças</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1px solid #E6E0D8;border-radius:6px;font:400 13px/1 'Work Sans';color:#1C1A19">Mais recentes<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C1A19" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></span>
+      </div>
+    </div>
+
+    <div style="padding:24px 24px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px 12px">
+      <sc-for list="{{ todos }}" as="item" hint-placeholder-count="12">
+        <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:8px;text-decoration:none">
+          <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+            <sc-if value="{{ item.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+            <sc-if value="{{ item.noImg }}"><span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#F3EDE4 0 7px,#EAE2D6 7px 14px);font:400 10px/1 ui-monospace,Menlo,monospace;color:#9A918A">foto 1:1</span></sc-if>
+            <sc-if value="{{ item.isBadge }}"><span style="position:absolute;top:10px;left:10px;background:#fff;color:#AE144B;font:500 9px/1 'Work Sans';letter-spacing:.1em;text-transform:uppercase;padding:6px 9px;border-radius:999px">{{ item.badge }}</span></sc-if>
+          </span>
+          <span style="font:400 13px/1.35 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+          <span style="font:600 14px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:40px 24px 48px">
+      <span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:6px;background:#AE144B;color:#fff;font:500 14px/1 'Work Sans'">1</span>
+      <a href="#" onClick="{{ nada }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">2</a>
+      <a href="#" onClick="{{ nada }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">3</a>
+      <a href="#" onClick="{{ nada }}" style="height:44px;display:flex;align-items:center;padding:0 16px;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Próxima</a>
+    </div>
+
+    <div style="padding:28px 24px;background:#FAF6F0;border-top:1px solid #E6E0D8"><p class="cap" style="display:block">rodapé igual ao da tela Início</p></div>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vTD }}"><div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+  <div style="background:#fff">
+    <div style="background:#fff;border-bottom:1px solid #E6E0D8;display:flex;align-items:center;gap:40px;padding:0 64px;height:88px">
+      <div style="flex:none;width:132px;height:40px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 10px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo 132×40</div>
+      <nav style="display:flex;gap:28px;flex:1">
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Anéis</a>
+        <a href="#" onClick="{{ nada }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Pulseiras e Braceletes</a>
+        <a href="#" onClick="{{ irConjuntos }}" style="font:400 15px/1 'Work Sans';color:#1C1A19;padding:8px 0">Conjuntos</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onClick="{{ abrirBusca }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:6px;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg></button>
+        <a href="https://wa.me/5543988018171" style="display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:1px solid #AE144B;border-radius:6px;color:#AE144B;font:500 14px/1 'Work Sans'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg>WhatsApp</a>
+      </div>
+    </div>
+
+    <div style="padding:32px 64px 0">
+      <nav style="display:flex;align-items:center;gap:10px;font:400 13px/1 'Work Sans'">
+        <a href="#" onClick="{{ irInicio }}" style="color:#6B6360">Início</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A25C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+        <span style="color:#1C1A19">Todas as peças</span>
+      </nav>
+      <div style="margin:28px 0 0;max-width:640px">
+        <h1 style="margin:0 0 16px;font:500 44px/1.15 'Playfair Display',Georgia,serif;color:#1C1A19">Todas as peças</h1>
+        <p style="margin:0;font:400 14px/1.8 ui-monospace,Menlo,monospace;color:#9A918A">[2 ou 3 linhas de introdução — texto que você escreve]</p>
+      </div>
+    </div>
+
+    <div style="padding:40px 64px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="#" onClick="{{ irTodos }}" style="padding:11px 18px;border-radius:999px;background:#AE144B;color:#fff;font:500 14px/1 'Work Sans'">Todas</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Brincos</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Colares</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Anéis</a>
+        <a href="#" onClick="{{ nada }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Pulseiras e Braceletes</a>
+        <a href="#" onClick="{{ irConjuntos }}" style="padding:11px 18px;border-radius:999px;border:1px solid #E6E0D8;color:#1C1A19;font:400 14px/1 'Work Sans'">Conjuntos</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px">
+        <span style="font:400 13px/1 ui-monospace,Menlo,monospace;color:#9A918A">[N] peças</span>
+        <span style="display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 18px;border:1px solid #E6E0D8;border-radius:6px"><span style="font:400 14px/1 'Work Sans';color:#6B6360">Ordenar por</span><span style="font:500 14px/1 'Work Sans';color:#1C1A19">Mais recentes</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A19" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></span>
+      </div>
+    </div>
+
+    <div style="padding:40px 64px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:40px 24px">
+      <sc-for list="{{ todos }}" as="item" hint-placeholder-count="12">
+        <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px;text-decoration:none">
+          <span style="position:relative;display:block;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#F5F1EA">
+            <sc-if value="{{ item.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+            <sc-if value="{{ item.noImg }}"><span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#F3EDE4 0 8px,#EAE2D6 8px 16px);font:400 11px/1 ui-monospace,Menlo,monospace;color:#9A918A">foto 1:1</span></sc-if>
+            <sc-if value="{{ item.isBadge }}"><span style="position:absolute;top:12px;left:12px;background:#fff;color:#AE144B;font:500 10px/1 'Work Sans';letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:999px">{{ item.badge }}</span></sc-if>
+          </span>
+          <span style="font:400 16px/1.4 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+          <span style="font:600 17px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:64px 64px 80px">
+      <span style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:6px;background:#AE144B;color:#fff;font:500 15px/1 'Work Sans'">1</span>
+      <a href="#" onClick="{{ nada }}" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 15px/1 'Work Sans'">2</a>
+      <a href="#" onClick="{{ nada }}" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 15px/1 'Work Sans'">3</a>
+      <a href="#" onClick="{{ nada }}" style="height:48px;display:flex;align-items:center;padding:0 20px;border-radius:6px;border:1px solid #E6E0D8;color:#1C1A19;font:400 15px/1 'Work Sans'">Próxima página</a>
+    </div>
+
+    <div style="padding:28px 64px;background:#FAF6F0;border-top:1px solid #E6E0D8"><p class="cap" style="display:block">rodapé igual ao da tela Início</p></div>
+  </div>
+</div></sc-if>
+      <sc-if value="{{ vMenu }}"><div style="width:390px;min-height:680px;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;background:#fff;position:relative;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+        <div style="height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #E6E0D8">
+          <button onClick="{{ fechar }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#1C1A19;cursor:pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"></path></svg></button>
+          <div style="width:112px;height:34px;border:1px solid #E6E0D8;border-radius:4px;background:#FAF6F0;display:flex;align-items:center;justify-content:center;font:400 9px/1 ui-monospace,Menlo,monospace;color:#9A918A">logo</div>
+          <span style="width:44px"></span>
+        </div>
+        <nav style="padding:8px 24px 24px;display:flex;flex-direction:column">
+          <a href="#" onClick="{{ nada }}" style="font:400 19px/1 'Playfair Display',Georgia,serif;color:#1C1A19;padding:18px 0;border-bottom:1px solid #F0ECE5">Brincos</a>
+          <a href="#" onClick="{{ nada }}" style="font:400 19px/1 'Playfair Display',Georgia,serif;color:#1C1A19;padding:18px 0;border-bottom:1px solid #F0ECE5">Colares</a>
+          <a href="#" onClick="{{ nada }}" style="font:400 19px/1 'Playfair Display',Georgia,serif;color:#1C1A19;padding:18px 0;border-bottom:1px solid #F0ECE5">Anéis</a>
+          <a href="#" onClick="{{ nada }}" style="font:400 19px/1 'Playfair Display',Georgia,serif;color:#1C1A19;padding:18px 0;border-bottom:1px solid #F0ECE5">Pulseiras e Braceletes</a>
+          <a href="#" onClick="{{ irConjuntos }}" style="font:400 19px/1 'Playfair Display',Georgia,serif;color:#AE144B;padding:18px 0;border-bottom:1px solid #F0ECE5">Conjuntos</a>
+          <a href="#" onClick="{{ irTodos }}" style="font:400 19px/1 'Playfair Display',Georgia,serif;color:#1C1A19;padding:18px 0">Todas as peças</a>
+        </nav>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:24px;background:#FAF6F0;border-top:1px solid #E6E0D8;display:flex;flex-direction:column;gap:14px">
+          <a href="https://wa.me/5543988018171" style="display:flex;align-items:center;gap:10px;font:400 15px/1 'Work Sans';color:#1C1A19"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.5l1.7-4.8A8.4 8.4 0 1 1 21 11.6z"></path></svg>Falar no WhatsApp · (43) 98801-8171</a>
+          <a href="https://instagram.com/raffiebyjuju" style="display:flex;align-items:center;gap:10px;font:400 15px/1 'Work Sans';color:#1C1A19"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="16.9" cy="7.1" r="1"></circle></svg>@raffiebyjuju</a>
+          <a href="mailto:jujubalondrina@gmail.com" style="display:flex;align-items:center;gap:10px;font:400 15px/1 'Work Sans';color:#1C1A19"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#AE144B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"></rect><path d="M3.2 6.6L12 13l8.8-6.4"></path></svg>jujubalondrina@gmail.com</a>
+        </div>
+      </div></sc-if>
+      <sc-if value="{{ vBusca }}"><div style="display:flex;justify-content:center;padding:24px 0"><div style="width:100%;max-width:520px;border:1px solid rgba(0,0,0,.10);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(28,26,25,.08)">
+        <div style="padding:20px 24px;border-bottom:1px solid #E6E0D8;display:flex;align-items:center;gap:12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B6360" stroke-width="1.25" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8L20.5 20.5"></path></svg>
+          <span style="flex:1;font:400 16px/1 'Work Sans';color:#1C1A19">argola<span style="color:#AE144B">|</span></span>
+          <button onClick="{{ fechar }}" style="background:none;border:none;font:400 13px/1 'Work Sans';color:#6B6360;cursor:pointer">fechar</button>
+        </div>
+        <div style="padding:16px 24px 8px"><span class="cap">sugestões</span></div>
+        <div style="padding:0 12px 12px">
+          <sc-for list="{{ buscaSug }}" as="item" hint-placeholder-count="3">
+            <a href="#" onClick="{{ irProduto }}" style="cursor:pointer;display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:4px;text-decoration:none">
+              <span style="width:52px;height:52px;border-radius:4px;overflow:hidden;background:#F5F1EA;flex:none"><img src="{{ item.img }}" alt="{{ item.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+              <span style="flex:1;font:400 15px/1.3 'Work Sans';color:#1C1A19">{{ item.name }}</span>
+              <span style="font:600 14px/1 'Work Sans';color:#AE144B">{{ item.price }}</span>
+            </a>
+          </sc-for>
+        </div>
+        <div style="padding:12px 24px 20px;border-top:1px solid #F0ECE5"><a href="#" onClick="{{ irTodos }}" style="font:500 14px/1 'Work Sans';color:#AE144B">Ver todos os resultados para “argola”</a></div>
+      </div></div></sc-if>
+    </div>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { rota: "inicio", vista: "mobile", escala: 1, altura: 0 };
+  hostRef = React.createRef();
+  innerRef = React.createRef();
+
+  componentDidMount() {
+    this.ro = new ResizeObserver(() => this.medir());
+    if (this.hostRef.current) this.ro.observe(this.hostRef.current);
+    if (this.innerRef.current) this.ro.observe(this.innerRef.current);
+    this.medir();
+  }
+  componentDidUpdate() { this.medir(); }
+  componentWillUnmount() { if (this.ro) this.ro.disconnect(); }
+
+  largura() { return this.state.vista === "desktop" && this.state.rota !== "menu" ? 1440 : 390; }
+
+  medir() {
+    const h = this.hostRef.current, i = this.innerRef.current;
+    if (!h || !i) return;
+    const esc = Math.min(1, (h.clientWidth - 32) / this.largura());
+    const alt = i.scrollHeight * esc;
+    if (Math.abs(esc - this.state.escala) > 0.002 || Math.abs(alt - this.state.altura) > 1) {
+      this.setState({ escala: esc, altura: alt });
+    }
+  }
+
+  ir(rota) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ rota: rota, altura: 0 });
+      if (typeof window !== "undefined") window.scrollTo(0, 0);
+    };
+  }
+
+  aba(r) {
+    const on = this.state.rota === r;
+    return { appearance: "none", height: "36px", padding: "0 14px", borderRadius: "999px", cursor: "pointer",
+      border: "1px solid " + (on ? "#AE144B" : "#E6E0D8"), background: on ? "#AE144B" : "#fff",
+      color: on ? "#fff" : "#1C1A19", font: "500 13px/1 'Work Sans',sans-serif" };
+  }
+  botaoVista(v) {
+    const on = this.state.vista === v;
+    return { appearance: "none", height: "30px", padding: "0 14px", borderRadius: "999px", cursor: "pointer",
+      border: "none", background: on ? "#1C1A19" : "transparent", color: on ? "#fff" : "#6B6360",
+      font: "500 12px/1 'Work Sans',sans-serif" };
+  }
+
+  renderVals() {
+    const A = "assets/";
+    const st = this.state;
+    const mob = st.vista === "mobile";
+    const p = (name, price, img, alt, badge) => ({ name, price, img, alt, badge: badge || "", hasImg: true, noImg: false, isBadge: !!badge });
+    const ph = (name) => ({ name, price: "R$ —", img: "", alt: "", badge: "", hasImg: false, noImg: true, isBadge: false });
+
+    const brinco = p("Brinco Argola Bold GG", "R$ 309,50", A + "brinco-argola-bold-gg.jpeg", "Brinco argola bold GG dourado sobre prato de cerâmica", "Mais vendido");
+    const colar = p("Colar Duplo", "R$ 165,90", A + "colar-duplo.jpeg", "Colar duplo dourado com dois pingentes redondos cravejados");
+    const conjunto = p("Conjunto Orgânico", "R$ 291,90", A + "conjunto-organico.jpeg", "Conjunto Orgânico dourado com pedras negras: colar e brincos", "Novo");
+    const anel = p("Anel Curve", "R$ 287,00", A + "anel-curve.jpeg", "Anel Curve dourado liso apoiado em uma rosa");
+    const bracelete = p("Bracelete Duplo", "R$ 365,50", A + "bracelete-duplo.jpeg", "Bracelete duplo dourado com fio torcido e fio liso");
+
+    const irInicio = this.ir("inicio"), irConjuntos = this.ir("conjuntos"), irProduto = this.ir("produto"), irTodos = this.ir("todos");
+    const nada = (e) => { if (e && e.preventDefault) e.preventDefault(); };
+    const larg = this.largura();
+
+    const urls = { inicio: "/", conjuntos: "/conjuntos", produto: "/conjuntos/conjunto-organico", todos: "/produtos", menu: "/", busca: "/" };
+
+    return {
+      irInicio, irConjuntos, irProduto, irTodos, nada,
+      abrirMenu: this.ir("menu"), abrirBusca: this.ir("busca"), fechar: irInicio,
+      verMobile: () => this.setState({ vista: "mobile", altura: 0 }),
+      verDesktop: () => this.setState({ vista: "desktop", altura: 0 }),
+      abaInicio: this.aba("inicio"), abaConjuntos: this.aba("conjuntos"), abaProduto: this.aba("produto"),
+      abaTodos: this.aba("todos"), abaMenu: this.aba("menu"), abaBusca: this.aba("busca"),
+      btMobile: this.botaoVista("mobile"), btDesktop: this.botaoVista("desktop"),
+      url: urls[st.rota] || "/",
+      hostRef: this.hostRef, innerRef: this.innerRef,
+      palcoBox: { width: (larg * st.escala) + "px", height: st.altura ? st.altura + "px" : "auto" },
+      palcoInner: { width: larg + "px", transform: "scale(" + st.escala + ")", transformOrigin: "top left" },
+      vIM: st.rota === "inicio" && mob, vID: st.rota === "inicio" && !mob,
+      vCM: st.rota === "conjuntos" && mob, vCD: st.rota === "conjuntos" && !mob,
+      vPM: st.rota === "produto" && mob, vPD: st.rota === "produto" && !mob,
+      vTM: st.rota === "todos" && mob, vTD: st.rota === "todos" && !mob,
+      vMenu: st.rota === "menu", vBusca: st.rota === "busca",
+      categorias: [
+        { name: "Brincos", go: nada, img: A + "brinco-argola-bold-gg.jpeg", alt: "Brincos argola dourados" },
+        { name: "Colares", go: nada, img: A + "colar-duplo.jpeg", alt: "Colar duplo dourado" },
+        { name: "Anéis", go: nada, img: A + "anel-curve.jpeg", alt: "Anel Curve dourado" },
+        { name: "Pulseiras e Braceletes", go: nada, img: A + "bracelete-duplo.jpeg", alt: "Bracelete duplo dourado" },
+        { name: "Conjuntos", go: irConjuntos, img: A + "conjunto-organico.jpeg", alt: "Conjunto Orgânico dourado com pedras negras" }
+      ],
+      maisVendidos: [brinco, conjunto, bracelete, anel, colar],
+      novidades: [conjunto, anel, colar, brinco],
+      conjuntosGrid: [conjunto, ph("Conjunto · vaga de catálogo"), ph("Conjunto · vaga de catálogo"), ph("Conjunto · vaga de catálogo"), ph("Conjunto · vaga de catálogo"), ph("Conjunto · vaga de catálogo"), ph("Conjunto · vaga de catálogo"), ph("Conjunto · vaga de catálogo")],
+      todos: [brinco, colar, conjunto, anel, bracelete, ph("Vaga de catálogo"), ph("Vaga de catálogo"), ph("Vaga de catálogo"), ph("Vaga de catálogo"), ph("Vaga de catálogo"), ph("Vaga de catálogo"), ph("Vaga de catálogo")],
+      relacionados: [colar, brinco, anel, bracelete],
+      buscaSug: [brinco, conjunto, colar]
+    };
+  }
+}
+</script>
+</body>
+</html>
